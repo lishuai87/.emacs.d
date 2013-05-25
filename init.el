@@ -1,41 +1,20 @@
 
+;; personal info
+(setq user-full-name "Li Shuai")
+(setq user-mail-address "lishuaihenu@gmail.com")
+
 ;; for putty
-(setq linum-format "%4d  ")
+;;(setq linum-format "%4d  ")
+
+;; for gui
+(customize-set-variable 'scroll-bar-mode 'right)
+(setq x-select-enable-clipboard t)
 
 (setq default-directory "~/workspace")
 
-(defun open-init-file ()
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-
-(global-set-key "\C-xi" 'open-init-file) 
-
 ;; no welcome mesg
 (setq inhibit-startup-message t)
-
-;; tool bar
 (tool-bar-mode -1)
-
-;; file path
-(setq frame-title-format '(
-			   (:eval
-			    (if (buffer-file-name)
-				(concat
-				 (directory-file-name
-				  (file-name-directory
-				   (abbreviate-file-name
-				    (buffer-file-name))))
-				 "/%b" )))))
-
-(require 'whitespace)
-(global-set-key [f6] 'whitespace-mode)
-
-(setq whitespace-line-column 250)
-
-;;(setq whitespace-hspace
-;;      '(face tab lines-tail space-after-tab))
-
-;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
 ;;============================= key bond  =================================
 ;; y/n
@@ -54,7 +33,6 @@
 ;; move
 (global-set-key (kbd "C-;") 'backward-paragraph)
 (global-set-key (kbd "C-'") 'forward-paragraph)
-;; back forword
 (global-set-key (kbd "M-;") 'backward-page)
 (global-set-key (kbd "M-'") 'forward-page) 
 
@@ -88,6 +66,16 @@
 		  (line-end-position))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 (global-set-key (kbd "M-k") 'qiang-copy-line)
+
+;; C-x i open init.el
+(defun open-init-file ()
+  (interactive)
+  (find-file "~/.emacs.d/init.el"))
+
+(global-set-key "\C-xi" 'open-init-file) 
+
+(require 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;;============================  mouse  =============================
 ;; copy
@@ -123,6 +111,9 @@
 (global-set-key [mouse-4] 'down-slightly)
 (global-set-key [mouse-5] 'up-slightly)
 
+;; move away
+;;(mouse-avoidance-mode 'animate)
+
 ;;================================  tabbar  ============================
 (load-file "~/.emacs.d/tabbar.el")
 (require 'tabbar)
@@ -131,37 +122,50 @@
 (global-set-key (kbd "M-k") 'tabbar-forward)
 
 ;; theme
-(set-face-attribute 
- 'tabbar-default nil
- :family "Bitstream Vera Sans Mono"
- :background "gray80"
- :foreground "gray30"
- :height 1.0
- )
+(set-face-attribute 'tabbar-default nil
+		    :family "Bitstream Vera Sans Mono"
+		    :background "gray80"
+		    :foreground "gray30"
+		    :height 1.0
+		    )
 (set-face-attribute 'tabbar-button nil
 		    :inherit 'tabbar-default
 		    :box '(:line-width 1 :color "black")
 		    )
 ;; corrent tab
-(set-face-attribute
- 'tabbar-selected nil
- :inherit 'tabbar-default
- :foreground "DarkGreen"
- :background "LightGoldenrod"
- :box '(:line-width 2 :color "DarkGoldenrod")
- :overline "black"
- :underline "black"
- :weight 'bold
- )
+(set-face-attribute 'tabbar-selected nil
+		    :inherit 'tabbar-default
+		    :foreground "DarkGreen"
+		    :background "LightGoldenrod"
+		    :box '(:line-width 2 :color "DarkGoldenrod")
+		    :overline "black"
+		    :underline "black"
+		    :weight 'bold
+		    )
 (set-face-attribute 'tabbar-unselected nil
 		    :inherit 'tabbar-default
 		    )
 
-;;============================   color theme   =============================
+;;=================================  theme   =============================
+(require 'linum)
+(global-linum-mode t)
+
+(require 'whitespace)
+(global-set-key [f6] 'whitespace-mode)
+(setq whitespace-line-column 250)
+
+;;(setq whitespace-hspace
+;;      '(face tab lines-tail space-after-tab))
+;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
 (add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
 (require 'color-theme)
 (color-theme-initialize)
 (color-theme-calm-forest)
+
+;; current line
+(global-hl-line-mode t)
+(set-face-background hl-line-face "#2E2E2E")
 
 (load-file "~/.emacs.d/fill-column-indicator.el")
 (require 'fill-column-indicator)
@@ -174,9 +178,16 @@
 ;;(global-fci-mode 1) 
 (setq-default fill-column 80)
 
-;; current line
-(global-hl-line-mode t)
-(set-face-background hl-line-face "#2E2E2E")
+;; file path
+(setq frame-title-format '(
+			   (:eval
+			    (if (buffer-file-name)
+				(concat
+				 (directory-file-name
+				  (file-name-directory
+				   (abbreviate-file-name
+				    (buffer-file-name))))
+				 "/%b" )))))
 
 ;;==============================  rfc  ====================================
 (setq load-path (cons "~/.emacs.d/rfc" load-path))
@@ -195,31 +206,26 @@
     '("rfc[0-9]+\\.txt"))))
 
 ;; sr-speedbar in main frame
-(load-file "~/.emacs.d/sr-speedbar.el")
+(load-file "~/.emacs.d/rfc/sr-speedbar.el")
 (require 'sr-speedbar)
 (setq sr-speedbar-right-side nil)
 
-;;=============================  C theme  =================================
-;; 
+;;=============================  C style  =================================
 (c-set-offset 'substatement-open 0)
 
 ;; kernel style
 (add-hook 'c-mode-hook
 	  '(lambda ()
 	     (c-set-style "linux")   ;; or k&r
-	     ;;(c-set-offset 'case-label '+);;case
+	     ;;(c-set-offset 'case-label '+)
 	     (setq tab-width 8)
 	     (setq indent-tabs-mode t)
-	     (setq c-basic-offset 8)));;8 chat
+	     (setq c-basic-offset 8)))
 
 ;; google-c-style
 ;;(load-file "~/.emacs.d/google-c-style.el")
 ;;(add-hook 'c-mode-common-hook 'google-set-c-style)
 ;;(add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
-;; line number
-(require 'linum)
-(global-linum-mode t)
 
 ;; font
 (global-font-lock-mode t)
@@ -320,6 +326,26 @@
 
 (setq derl-cookie "cookie")
 
+;;================================  opencl  ============================
+(setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
+
+;;================================   clisp  ==============================
+;;(add-to-list 'load-path "~/.emacs.d/slime/")
+;;(setq inferior-lisp-program "/usr/bin/sbcl")
+;;(require 'slime)
+;;(slime-setup '(slime-fancy))
+
+;;=================================   SML   ==============================
+;;(add-to-list 'load-path "~/.emacs.d/sml-mode/")
+;;(autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
+;;(autoload 'run-sml "sml-proc" "Run an inferiro SML process." t)
+;;(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\|fun\\)\\'" . sml-mode))
+
+;;=================================   Golang   ==============================
+;;(setq load-path (cons (expand-file-name "~/.emacs.d/go/") load-path))
+;;(require 'go-mode-load)
+
+
 ;;================================  CEDET  ============================
 ;;(require 'cedet)
 ;;(global-ede-mode t)
@@ -330,6 +356,12 @@
 				  global-idle-summary-mode
 				  global-semantic-mru-bookmark-mode))
 (semantic-mode 1)
+
+;;(load-file "~/.emacs.d/semantic-tag-folding.el")
+;;(global-semantic-tag-folding-mode 1)
+
+;;(global-semantic-decoration-mode 1)
+;;(require 'semantic/decorate/include nil 'noerror)
 
 ;;================================  ac  ============================
 
@@ -383,4 +415,27 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal)))))
+ ;;'(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal))))
+ ;; '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
+)
+
+;;==============================  GDB  =================================
+(setq gdb-many-windows t)
+(setq gdb-use-separate-io-buffer t)
+
+(defun kill-buffer-when-exit ()
+  "Close assotiated buffer when a process exited"
+  (let ((current-process (ignore-errors (get-buffer-process (current-buffer)))))
+    (when current-process
+      (set-process-sentinel current-process
+			    (lambda (watch-process change-state)
+			      (when (string-match "\\(finished\\|exited\\)" change-state)
+				(kill-buffer (process-buffer watch-process))))))))
+(add-hook 'gdb-mode-hook 'kill-buffer-when-exit)
+(add-hook 'shell-mode-hook 'kill-buffer-when-exit)
+
+;;when start gdb，close ecb
+(defadvice gdb (before ecb-deactivate activate)
+  (when (and (boundp 'ecb-minor-mode) ecb-minor-mode)
+    (ecb-deactivate)))
+
