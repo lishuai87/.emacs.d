@@ -3,9 +3,6 @@
 (setq user-full-name "Li Shuai")
 (setq user-mail-address "lishuaihenu@gmail.com")
 
-;; for putty
-;;(setq linum-format "%4d  ")
-
 ;; for gui
 (customize-set-variable 'scroll-bar-mode 'right)
 (setq x-select-enable-clipboard t)
@@ -149,6 +146,10 @@
 ;;=================================  theme   =============================
 (require 'linum)
 (global-linum-mode t)
+
+;; for nw mode
+(when (not window-system)
+  (setq linum-format "%4d  "))
 
 (require 'whitespace)
 (global-set-key [f6] 'whitespace-mode)
