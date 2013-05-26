@@ -19,7 +19,7 @@
 ;; C-k 
 (setq-default kill-whole-line t)
 ;; shift + space
-(global-set-key [?\S- ] 'set-mark-command)
+;;(global-set-key [?\S- ] 'set-mark-command)
 
 ;; switch window
 (global-set-key [M-left] 'windmove-left)
@@ -32,6 +32,21 @@
 (global-set-key (kbd "C-'") 'forward-paragraph)
 (global-set-key (kbd "M-;") 'backward-page)
 (global-set-key (kbd "M-'") 'forward-page) 
+
+;; paren mode
+(show-paren-mode t)
+(setq show-paren-style 'parentheses)
+(set-face-foreground 'show-paren-match "#004242")
+(set-face-background 'show-paren-match "#B0B7B0")
+
+(global-set-key (kbd "C-<return>") 'match-paren)
+
+(defun match-paren (arg)
+  "Go to the matching paren if on a paren; otherwise insert '."
+  (interactive "p")
+  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
+	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
+	(t (self-insert-command (or arg 1)))))
 
 ;; M-w
 (defadvice kill-line (before check-position activate)
@@ -84,24 +99,6 @@
 (setq line-move-visual nil)
 (setq track-eol t)
 
-;; paren mode
-(show-paren-mode t)
-(setq show-paren-style 'parentheses)
-
-(set-face-foreground 'show-paren-match "#004242")
-;;(set-face-bold-p 'show-paren-match t)
-(set-face-background 'show-paren-match "#B0B7B0")
-
-(global-set-key "'" 'match-paren)
-
-(defun match-paren (arg)
-  "Go to the matching paren if on a paren; otherwise insert '."
-  (interactive "p")
-  (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-	(t (self-insert-command (or arg 1)))))
-;; end [] match
-
 ;; 3
 (defun up-slightly () (interactive) (scroll-up 3))
 (defun down-slightly () (interactive) (scroll-down 3))
@@ -149,7 +146,7 @@
 
 ;; for nw mode
 (when (not window-system)
-  (setq linum-format "%4d  "))
+  (setq linum-format "%2d "))
 
 (require 'whitespace)
 (global-set-key [f6] 'whitespace-mode)
@@ -439,4 +436,3 @@
 (defadvice gdb (before ecb-deactivate activate)
   (when (and (boundp 'ecb-minor-mode) ecb-minor-mode)
     (ecb-deactivate)))
-
