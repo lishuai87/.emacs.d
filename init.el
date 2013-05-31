@@ -146,7 +146,7 @@
 
 ;; for nw mode
 (when (not window-system)
-  (setq linum-format "%2d "))
+  (setq-default linum-format "%2d  "))
 
 (require 'whitespace)
 (global-set-key [f6] 'whitespace-mode)
@@ -278,11 +278,9 @@
 		      load-path))
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
-
 (require 'erlang-start)
 
 (add-hook 'erlang-mode-hook 'erlang-font-lock-level-3)
-
 (add-to-list 'auto-mode-alist '("\\.\\(erl\\|hrl\\|app\\|app.src\\)\\'" . erlang-mode))
 
 ;;(defun my-erlang-mode-hook ()
@@ -292,7 +290,6 @@
 
 ;; (setq erlang-indent-level 4)
 ;; (add-hook 'erlang-mode-hook 'my-erlang-mode-hook)
-
 
 (add-to-list 'load-path "~/.emacs.d/distel/elisp")
 (require 'distel)
