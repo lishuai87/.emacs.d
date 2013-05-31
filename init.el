@@ -344,7 +344,7 @@
 ;;================================  CEDET  ============================
 (require 'cedet)
 (require 'semantic)
-(global-ede-mode 1)
+;;(global-ede-mode 1)
 
 (setq semantic-default-submodes 
       (append semantic-default-submodes
@@ -429,7 +429,7 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;;'(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal))))
+ ;; '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal))))
  ;; '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal)))))
 )
 
@@ -448,7 +448,7 @@
 (add-hook 'gdb-mode-hook 'kill-buffer-when-exit)
 (add-hook 'shell-mode-hook 'kill-buffer-when-exit)
 
-;;when start gdb，close ecb
+;; when gdb start, close ecb
 (defadvice gdb (before ecb-deactivate activate)
   (when (and (boundp 'ecb-minor-mode) ecb-minor-mode)
     (ecb-deactivate)))
