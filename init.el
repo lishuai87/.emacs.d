@@ -342,21 +342,40 @@
 
 
 ;;================================  CEDET  ============================
-;;(require 'cedet)
-;;(global-ede-mode t)
+(require 'cedet)
+(require 'semantic)
+(global-ede-mode 1)
 
-;;
-(setq semantic-default-submodes '(global-semantic-idle-scheduler-mode
-				  global-semantic-minor-mode
-				  global-idle-summary-mode
-				  global-semantic-mru-bookmark-mode))
+(setq semantic-default-submodes 
+      (append semantic-default-submodes
+	      '(global-semantic-idle-local-symbol-highlight-mode
+		global-semantic-idle-summary-mode
+		global-semantic-decoration-mode
+		global-semantic-highlight-func-mode
+		global-semantic-stickyfunc-mode
+		global-semantic-show-unmatched-syntax-mode
+		global-semantic-mru-bookmark-mode
+		)))
+
+(setq semantic-decoration-styles '(("semantic-decoration-on-includes" . t)
+                                   ("semantic-decoration-on-protected-members")
+                                   ("semantic-decoration-on-private-members")))
+
 (semantic-mode 1)
+(semanticdb-enable-gnu-global-databases 'c-mode)
+(semanticdb-enable-gnu-global-databases 'c++-mode)
 
-;;(load-file "~/.emacs.d/semantic-tag-folding.el")
+(define-key semantic-mode-map (kbd "C-c , .") 'semantic-ia-fast-jump)
+(define-key semantic-mode-map (kbd "C-c , P") 'semantic-analyze-proto-impl-toggle)
+(define-key semantic-mode-map (kbd "C-c , h") 'semantic-decoration-include-visit)
+
+
+;;(load-file "~/.emacs.d/cedet/lisp/cedet/cedet.el")
+;;(semantic-load-enable-minimum-features)
+
+;;(require 'semantic-tag-folding nil 'noerror)
 ;;(global-semantic-tag-folding-mode 1)
-
-;;(global-semantic-decoration-mode 1)
-;;(require 'semantic/decorate/include nil 'noerror)
+;;(global-srecode-minor-mode 1)
 
 ;;================================  ac  ============================
 
