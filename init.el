@@ -364,6 +364,7 @@
 (semantic-mode 1)
 (semanticdb-enable-gnu-global-databases 'c-mode)
 (semanticdb-enable-gnu-global-databases 'c++-mode)
+(semanticdb-enable-gnu-global-databases 'erlang-mode)
 
 (define-key semantic-mode-map (kbd "C-c , .") 'semantic-ia-fast-jump)
 (define-key semantic-mode-map (kbd "C-c , P") 'semantic-analyze-proto-impl-toggle)
