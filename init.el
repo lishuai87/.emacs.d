@@ -7,9 +7,6 @@
 (customize-set-variable 'scroll-bar-mode 'right)
 (setq x-select-enable-clipboard t)
 
-(setq default-directory "~/workspace")
-
-;; no welcome mesg
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 
@@ -19,22 +16,18 @@
 ;;============================= key bond  =================================
 ;; y/n
 (fset 'yes-or-no-p 'y-or-n-p)
-;; C-k 
+;; C-k
 (setq-default kill-whole-line t)
-;; shift + space
-;;(global-set-key [?\S- ] 'set-mark-command)
 
-;; switch window
-(global-set-key [M-left] 'windmove-left)
-(global-set-key [M-right] 'windmove-right)
-(global-set-key [M-up] 'windmove-up)
-(global-set-key [M-down] 'windmove-down)
+;; windmove
+(global-set-key (kbd "ESC <left>") 'windmove-left)
+(global-set-key (kbd "ESC <right>") 'windmove-right)
+(global-set-key (kbd "ESC <up>") 'windmove-up)
+(global-set-key (kbd "ESC <down>") 'windmove-down)
 
 ;; move
-(global-set-key (kbd "C-;") 'backward-paragraph)
-(global-set-key (kbd "C-'") 'forward-paragraph)
-(global-set-key (kbd "M-;") 'backward-page)
-(global-set-key (kbd "M-'") 'forward-page) 
+(global-set-key (kbd "M-p") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
 
 ;; paren mode
 (show-paren-mode t)
@@ -42,14 +35,14 @@
 (set-face-foreground 'show-paren-match "#004242")
 (set-face-background 'show-paren-match "#B0B7B0")
 
-(global-set-key (kbd "C-<return>") 'match-paren)
-
 (defun match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert '."
   (interactive "p")
   (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
 	((looking-at "\\s\)") (forward-char 1) (backward-list 1))
 	(t (self-insert-command (or arg 1)))))
+
+(global-set-key (kbd "C-<return>") 'match-paren)
 
 ;; M-w
 (defadvice kill-line (before check-position activate)
@@ -80,14 +73,15 @@
   (kill-ring-save (point)
 		  (line-end-position))
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+
 (global-set-key (kbd "M-k") 'qiang-copy-line)
 
-;; C-x i open init.el
+;; init file
 (defun open-init-file ()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-(global-set-key "\C-xi" 'open-init-file) 
+(global-set-key "\C-xi" 'open-init-file)
 
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -164,8 +158,14 @@
 (color-theme-initialize)
 (color-theme-calm-forest)
 
+;; Hmmm, cursor is black in emacsclient
 ;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 ;;(load-theme 'calm-forest t)
+
+;; buildin color-theme is shit for emacsclient
+;;(custom-set-faces
+;; '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal))))
+;; )
 
 ;; current line
 (global-hl-line-mode t)
@@ -179,7 +179,7 @@
   (lambda () 
     (fci-mode 1)))
 
-;;(global-fci-mode 1) 
+;;(global-fci-mode 1)
 (setq-default fill-column 80)
 
 ;; file path
@@ -281,10 +281,7 @@
 (setq cperl-indent-level 4)
 
 ;;================================  erlang  ============================
-;;(setq tags-file-name "c:/workspace/erlang/TAGS") 
-
-(setq load-path (cons "/usr/lib/erlang/lib/tools-2.6.10/emacs"
-		      load-path))
+(setq load-path (cons "/usr/lib/erlang/lib/tools-2.6.10/emacs" load-path))
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
 (require 'erlang-start)
@@ -355,7 +352,7 @@
 (require 'semantic)
 ;;(global-ede-mode 1)
 
-(setq semantic-default-submodes 
+(setq semantic-default-submodes
       (append semantic-default-submodes
 	      '(global-semantic-idle-local-symbol-highlight-mode
 		global-semantic-idle-summary-mode
@@ -378,7 +375,6 @@
 (define-key semantic-mode-map (kbd "C-c , .") 'semantic-ia-fast-jump)
 (define-key semantic-mode-map (kbd "C-c , P") 'semantic-analyze-proto-impl-toggle)
 (define-key semantic-mode-map (kbd "C-c , h") 'semantic-decoration-include-visit)
-
 
 ;;(load-file "~/.emacs.d/cedet/lisp/cedet/cedet.el")
 ;;(semantic-load-enable-minimum-features)
@@ -427,21 +423,7 @@
 (setq ecb-history-make-buckets 'never)
 
 (custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ecb-options-version "2.40")
- '(show-paren-mode t)
- '(tool-bar-mode nil))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- ;; '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal))))
- '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal))))
-)
+ '(ecb-options-version "2.40"))
 
 ;;==============================  GDB  =================================
 (setq gdb-many-windows t)
