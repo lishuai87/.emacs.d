@@ -20,10 +20,10 @@
 (setq-default kill-whole-line t)
 
 ;; windmove
-(global-set-key (kbd "ESC <left>") 'windmove-left)
-(global-set-key (kbd "ESC <right>") 'windmove-right)
-(global-set-key (kbd "ESC <up>") 'windmove-up)
-(global-set-key (kbd "ESC <down>") 'windmove-down)
+(global-set-key (kbd "M-<left>") 'windmove-left)
+(global-set-key (kbd "M-<right>") 'windmove-right)
+(global-set-key (kbd "M-<up>") 'windmove-up)
+(global-set-key (kbd "M-<down>") 'windmove-down)
 
 ;; move
 (global-set-key (kbd "M-p") 'backward-paragraph)
@@ -75,6 +75,17 @@
   (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
 
 (global-set-key (kbd "M-k") 'qiang-copy-line)
+
+;; comment
+(defun qiang-comment-dwim-line (&optional arg)
+  "Replacement for the comment-dwim command."
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg)))
+
+(global-set-key "\M-;" 'qiang-comment-dwim-line)
 
 ;; init file
 (defun open-init-file ()
@@ -174,9 +185,9 @@
 (load-file "~/.emacs.d/fill-column-indicator.el")
 (require 'fill-column-indicator)
 
-(define-globalized-minor-mode global-fci-mode 
-  fci-mode 
-  (lambda () 
+(define-globalized-minor-mode global-fci-mode
+  fci-mode
+  (lambda ()
     (fci-mode 1)))
 
 ;;(global-fci-mode 1)
@@ -256,29 +267,18 @@
 		     plain-tex-mode))
 	   (let ((mark-even-if-inactive transient-mark-mode))
 	     (indent-region (region-beginning) (region-end) nil))))))
-;; comment
-(defun qiang-comment-dwim-line (&optional arg)
-  "Replacement for the comment-dwim command."
-  (interactive "*P")
-  (comment-normalize-vars)
-  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
-      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
-    (comment-dwim arg)))
-(global-set-key "\M-;" 'qiang-comment-dwim-line)
 
 ;; auto pair
 (load-file "~/.emacs.d/autopair.el")
 (require 'autopair)
-;;(autopair-global-mode)
+(autopair-global-mode)
 (add-hook 'c-mode-common-hook '(lambda () (autopair-mode)))
-
-;;(load-file "~/.emacs.d/bhj-fonts.el")
-;;(global-set-key [(control x) (meta -)] (lambda () (interactive) (bhj-step-frame-font-size -1)))
-;;(global-set-key [(control x) (meta +)] (lambda () (interactive) (bhj-step-frame-font-size 1)))
 
 ;;================================  cperl  ============================
 (defalias 'perl-mode 'cperl-mode)
-(setq cperl-indent-level 4)
+
+(setq cperl-indent-level 4
+      cperl-brace-offset -2)
 
 ;;================================  erlang  ============================
 (setq load-path (cons "/usr/lib/erlang/lib/tools-2.6.10/emacs" load-path))
@@ -346,7 +346,6 @@
 ;;(setq load-path (cons (expand-file-name "~/.emacs.d/go/") load-path))
 ;;(require 'go-mode-load)
 
-
 ;;================================  CEDET  ============================
 (require 'cedet)
 (require 'semantic)
@@ -375,9 +374,6 @@
 (define-key semantic-mode-map (kbd "C-c , .") 'semantic-ia-fast-jump)
 (define-key semantic-mode-map (kbd "C-c , P") 'semantic-analyze-proto-impl-toggle)
 (define-key semantic-mode-map (kbd "C-c , h") 'semantic-decoration-include-visit)
-
-;;(load-file "~/.emacs.d/cedet/lisp/cedet/cedet.el")
-;;(semantic-load-enable-minimum-features)
 
 ;;(require 'semantic-tag-folding nil 'noerror)
 ;;(global-semantic-tag-folding-mode 1)
