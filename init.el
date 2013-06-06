@@ -3,11 +3,11 @@
 (setq user-full-name "Li Shuai")
 (setq user-mail-address "lishuaihenu@gmail.com")
 
+(setq inhibit-startup-message t)
+
 ;; for gui
 (customize-set-variable 'scroll-bar-mode 'right)
 (setq x-select-enable-clipboard t)
-
-(setq inhibit-startup-message t)
 (tool-bar-mode -1)
 
 (setq default-frame-alist
@@ -52,6 +52,7 @@
 	(t (self-insert-command (or arg 1)))))
 
 (global-set-key (kbd "M-'") 'match-paren)
+(global-set-key (kbd "C-<return>") 'match-paren)
 
 ;; M-w
 (defadvice kill-line (before check-position activate)
