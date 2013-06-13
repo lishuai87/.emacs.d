@@ -1,5 +1,6 @@
 ;;; color-theme-calm-forest adapted for emacs24 deftheme
 
+;; gladiator: 2013-6-13 add cperl-mode support
 ;; Copyright (C) 2003 Artur Hefczyc
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -46,6 +47,8 @@
  '(cparen-binding-list-face ((t (:bold t :foreground "ForestGreen" :weight bold))))
  '(cparen-conditional-clause-face ((t (:foreground "RoyalBlue"))))
  '(cparen-normal-paren-face ((t (:foreground "grey50"))))
+ '(cperl-array-face ((t (:background "gray12"))))
+ '(cperl-hash-face ((t (:background "gray12"))))
  '(cursor ((t (:background "orange"))))
  '(custom-button-face ((t (:background "lightgrey" :foreground "black" :box (:line-width 2 :style
 											 released-button)))))
