@@ -47,7 +47,7 @@
  '(cparen-binding-list-face ((t (:bold t :foreground "ForestGreen" :weight bold))))
  '(cparen-conditional-clause-face ((t (:foreground "RoyalBlue"))))
  '(cparen-normal-paren-face ((t (:foreground "grey50"))))
- '(cperl-array-face ((t (:background "gray12"))))
+ '(cperl-array-face ((t (:foreground "gold" :background "gray12"))))
  '(cperl-hash-face ((t (:background "gray12"))))
  '(cursor ((t (:background "orange"))))
  '(custom-button-face ((t (:background "lightgrey" :foreground "black" :box (:line-width 2 :style
