@@ -11,7 +11,7 @@
 (tool-bar-mode -1)
 
 (setq default-frame-alist
-      '((height . 24) (width . 80)))
+      '((height . 28) (width . 80)))
 
 ;;============================= key bond  =================================
 ;; y/n
@@ -174,23 +174,18 @@
 ;;      '(face tab lines-tail space-after-tab))
 ;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
-(add-to-list 'load-path "~/.emacs.d/color-theme-6.6.0")
-(require 'color-theme)
-(color-theme-initialize)
-(color-theme-calm-forest)
+;; calm-forest
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'calm-forest t)
 
-;; Hmmm, cursor is black in emacsclient
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-;;(load-theme 'calm-forest t)
+;; current line
+(global-hl-line-mode t)
+(set-face-background hl-line-face "#2E2E2E")
 
 ;; buildin color-theme is shit for emacsclient
 ;;(custom-set-faces
 ;; '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal))))
 ;; )
-
-;; current line
-(global-hl-line-mode t)
-(set-face-background hl-line-face "#2E2E2E")
 
 (load-file "~/.emacs.d/fill-column-indicator.el")
 (require 'fill-column-indicator)
