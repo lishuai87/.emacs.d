@@ -1,17 +1,12 @@
-
 ;; personal info
 (setq user-full-name "Li Shuai")
 (setq user-mail-address "lishuaihenu@gmail.com")
 
 (setq inhibit-startup-message t)
-
 ;; for gui
 (customize-set-variable 'scroll-bar-mode 'right)
 (setq x-select-enable-clipboard t)
 (tool-bar-mode -1)
-
-(setq default-frame-alist
-      '((height . 28) (width . 80)))
 
 ;;============================= key bond  =================================
 ;; y/n
@@ -24,7 +19,7 @@
 (global-set-key (kbd "M-<right>") 'windmove-right)
 (global-set-key (kbd "M-<up>") 'windmove-up)
 (global-set-key (kbd "M-<down>") 'windmove-down)
-
+;; for putty
 (global-set-key (kbd "ESC <left>") 'windmove-left)
 (global-set-key (kbd "ESC <right>") 'windmove-right)
 (global-set-key (kbd "ESC <up>") 'windmove-up)
@@ -37,8 +32,6 @@
 ;; paren mode
 (show-paren-mode t)
 (setq show-paren-style 'parentheses)
-(set-face-foreground 'show-paren-match "#004242")
-(set-face-background 'show-paren-match "#B0B7B0")
 
 (defun match-paren (arg)
   "Go to the matching paren if on a paren; otherwise insert '."
@@ -117,14 +110,10 @@
 (setq line-move-visual nil)
 (setq track-eol t)
 
-;; 3
 (defun up-slightly () (interactive) (scroll-up 3))
 (defun down-slightly () (interactive) (scroll-down 3))
 (global-set-key [mouse-4] 'down-slightly)
 (global-set-key [mouse-5] 'up-slightly)
-
-;; move away
-;;(mouse-avoidance-mode 'animate)
 
 ;;================================  tabbar  ============================
 (load-file "~/.emacs.d/tabbar.el")
@@ -178,9 +167,12 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'calm-forest t)
 
-;; current line
 (global-hl-line-mode t)
-(set-face-background hl-line-face "#2E2E2E")
+
+(setq default-frame-alist
+      '((height . 26)
+	(width . 80)
+	(cursor-color . "orange")))
 
 (load-file "~/.emacs.d/fill-column-indicator.el")
 (require 'fill-column-indicator)
@@ -236,11 +228,6 @@
 	     (setq tab-width 8)
 	     (setq indent-tabs-mode t)
 	     (setq c-basic-offset 8)))
-
-;; google-c-style
-;;(load-file "~/.emacs.d/google-c-style.el")
-;;(add-hook 'c-mode-common-hook 'google-set-c-style)
-;;(add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
 ;; font
 (global-font-lock-mode t)
@@ -304,7 +291,6 @@
 (add-hook 'erlang-mode-hook
 	  (lambda ()
 	    ;; when starting an Erlang shell in Emacs, default in the node name
-	    ;; (setq inferior-erlang-machine-options '("-sname" "emacs"))
 	    (setq inferior-erlang-machine-options '("-sname" "emacs@localhost" "-setcookie" "cookie"))
 	    ;; add Erlang functions to an imenu menu
 	    (imenu-add-to-menubar "imenu")))
@@ -363,8 +349,8 @@
 		)))
 
 (setq semantic-decoration-styles '(("semantic-decoration-on-includes" . t)
-                                   ("semantic-decoration-on-protected-members")
-                                   ("semantic-decoration-on-private-members")))
+				   ("semantic-decoration-on-protected-members")
+				   ("semantic-decoration-on-private-members")))
 
 (semantic-mode 1)
 (semanticdb-enable-gnu-global-databases 'c-mode)
@@ -392,7 +378,6 @@
 (require 'ecb)
 
 (setq ecb-tip-of-the-day nil)
-;; F12, C-F12
 (global-set-key [f12] 'ecb-activate)
 (global-set-key [C-f12] 'ecb-deactivate)
 
@@ -411,11 +396,11 @@
 		   (other-window 1)
 		   (ecb-set-methods-buffer))
 
-(defecb-window-dedicator-to-ecb-buffer ecb-set-cscope-buffer t " *ECB cscope-buf*"
+(defecb-window-dedicator-to-ecb-buffer ecb-set-cscope-buffer t
+				       " *ECB cscope-buf*"
   (switch-to-buffer "*cscope*"))
 
 (setq ecb-layout-name "my-cscope-layout")
-
 (setq ecb-history-make-buckets 'never)
 
 (custom-set-variables
