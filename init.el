@@ -379,9 +379,9 @@
 
 (global-auto-complete-mode t)
 
-(add-to-list 'load-path "~/.emacs.d/emacs-clang-complete-async")
+(add-to-list 'load-path "~/.emacs.d/clang-async")
 (require 'auto-complete-clang-async)
-(setq ac-clang-complete-executable "~/.emacs.d/emacs-clang-complete-async/clang-complete")
+(setq ac-clang-complete-executable "~/.emacs.d/clang-async/clang-complete")
 
 (defun ac-cc-mode-setup ()
   (setq ac-sources '(ac-source-clang-async

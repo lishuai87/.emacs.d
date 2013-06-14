@@ -4,3 +4,7 @@
 session.*
 auto-save-list/
 semanticdb/
+clang-async/clang-complete
+clang-async/src/dep/
+clang-async/src/obj/
+
