@@ -182,11 +182,6 @@
 (global-hl-line-mode t)
 (set-face-background hl-line-face "#2E2E2E")
 
-;; buildin color-theme is shit for emacsclient
-;;(custom-set-faces
-;; '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 113 :width normal))))
-;; )
-
 (load-file "~/.emacs.d/fill-column-indicator.el")
 (require 'fill-column-indicator)
 

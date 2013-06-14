@@ -1,6 +1,6 @@
 ;;; color-theme-calm-forest adapted for emacs24 deftheme
 
-;; gladiator: 2013-6-13 add cperl-mode support
+;; javaforfun: 2013-6-13 add cperl-mode support
 ;; Copyright (C) 2003 Artur Hefczyc
 
 ;; This program is free software; you can redistribute it and/or modify
@@ -21,9 +21,9 @@
 
 (custom-theme-set-faces
  'calm-forest
- '(default ((t (:stipple nil :background "gray12" :foreground "green" :inverse-video nil :box nil :mouse "yellow"
-			 :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 98 :width
-			 normal :family "outline-courier new"))))
+ '(default ((t (:stipple nil :background "gray12" :foreground "green" :inverse-video nil :box nil
+			 :mouse "yellow" :strike-through nil :overline nil :underline nil :slant normal 
+			 :weight normal :height 113 :width normal))))
  '(Info-title-1-face ((t (:bold t :weight bold :family "helv" :height 1.728))))
  '(Info-title-2-face ((t (:bold t :family "helv" :weight bold :height 1.44))))
  '(Info-title-3-face ((t (:bold t :weight bold :family "helv" :height 1.2))))
@@ -123,7 +123,6 @@
  '(menu ((t (nil))))
  '(mode-line ((t (:background "grey75" :foreground "black" :box (:line-width -1 :style
 									     released-button)))))
- '(mouse ((t (:background "yellow"))))
  '(region ((t (:background "blue3"))))
  '(scroll-bar ((t (nil))))
  '(secondary-selection ((t (:background "SkyBlue4"))))
