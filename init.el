@@ -166,9 +166,9 @@
 ;; calm-forest
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'calm-forest t)
-;;(load-theme 'soothe t)
 
 (global-hl-line-mode t)
+(global-font-lock-mode t)
 
 (setq default-frame-alist
       '((height . 26)
@@ -229,9 +229,6 @@
 	     (setq tab-width 8)
 	     (setq indent-tabs-mode t)
 	     (setq c-basic-offset 8)))
-
-;; font
-(global-font-lock-mode t)
 
 ;;============================  format  ============================
 ;; one key format
@@ -367,6 +364,42 @@
 ;;(global-srecode-minor-mode 1)
 
 ;;============================  ac  ============================
+(add-to-list 'load-path "~/.emacs.d/yasnippet")
+(require 'yasnippet)
+(setq yas/snippet-dirs "~/.emacs.d/yasnippet/snippets")
+(yas/global-mode 1) 
+
+(add-to-list 'load-path "~/.emacs.d/auto-complete")
+(require 'auto-complete)
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/dict")
+
+;;(define-key ac-completing-map "\t" 'ac-complete)
+;;(define-key ac-completing-map "\r" nil)
+
+(global-auto-complete-mode t)
+
+(add-to-list 'load-path "~/.emacs.d/emacs-clang-complete-async")
+(require 'auto-complete-clang-async)
+(setq ac-clang-complete-executable "~/.emacs.d/emacs-clang-complete-async/clang-complete")
+
+(defun ac-cc-mode-setup ()
+  (setq ac-sources '(ac-source-clang-async
+		     ac-source-yasnippet))
+  (ac-clang-launch-completion-process))
+
+(defun my-ac-config ()
+  (add-hook 'c-mode-common-hook 'ac-cc-mode-setup)
+  (add-hook 'auto-complete-mode-hook 'ac-common-setup))
+
+(my-ac-config)
+
+(set-face-background 'ac-candidate-face "lightgray")
+(set-face-underline 'ac-candidate-face "darkgray")
+(set-face-background 'ac-selection-face "steelblue")
+
+(setq ac-auto-start 2)
+(setq ac-dwim t)
 
 ;;============================  cscope  ============================
 (load-file "~/.emacs.d/xcscope.el")
