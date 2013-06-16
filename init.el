@@ -8,7 +8,7 @@
 (setq x-select-enable-clipboard t)
 (tool-bar-mode -1)
 
-;;============================= key bond  =================================
+;;============================  key binding  ============================
 ;; y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; C-k
@@ -100,7 +100,7 @@
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;;============================  mouse  =============================
+;;============================  mouse  ============================
 ;; copy
 (setq mouse-drag-copy-region nil)
 
@@ -115,7 +115,7 @@
 (global-set-key [mouse-4] 'down-slightly)
 (global-set-key [mouse-5] 'up-slightly)
 
-;;================================  tabbar  ============================
+;;============================  tabbar  ============================
 (load-file "~/.emacs.d/tabbar.el")
 (require 'tabbar)
 (tabbar-mode)
@@ -147,7 +147,7 @@
 		    :inherit 'tabbar-default
 		    )
 
-;;=================================  theme   =============================
+;;============================  theme  ============================
 (require 'linum)
 (global-linum-mode t)
 
@@ -166,6 +166,7 @@
 ;; calm-forest
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 (load-theme 'calm-forest t)
+;;(load-theme 'soothe t)
 
 (global-hl-line-mode t)
 
@@ -196,7 +197,7 @@
 				    (buffer-file-name))))
 				 "/%b" )))))
 
-;;==============================  rfc  ====================================
+;;============================  rfc  ============================
 (setq load-path (cons "~/.emacs.d/rfc" load-path))
 (setq auto-mode-alist
       (cons '("/rfc[0-9]+\\.txt\\(\\.gz\\)?\\'" . rfcview-mode)
@@ -217,7 +218,7 @@
 (require 'sr-speedbar)
 (setq sr-speedbar-right-side nil)
 
-;;=============================  C style  =================================
+;;============================  C style  ============================
 (c-set-offset 'substatement-open 0)
 
 ;; kernel style
@@ -232,7 +233,7 @@
 ;; font
 (global-font-lock-mode t)
 
-;;============================  format  ==============================
+;;============================  format  ============================
 ;; one key format
 (defun indent-whole ()
   (interactive)
@@ -261,13 +262,13 @@
 (autopair-global-mode)
 (add-hook 'c-mode-common-hook '(lambda () (autopair-mode)))
 
-;;================================  cperl  ============================
+;;============================  cperl  ============================
 (defalias 'perl-mode 'cperl-mode)
 
 (setq cperl-indent-level 4
       cperl-brace-offset -2)
 
-;;================================  erlang  ============================
+;;============================  erlang  ============================
 (setq load-path (cons "/usr/lib/erlang/lib/tools-2.6.10/emacs" load-path))
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
@@ -313,26 +314,26 @@
 
 (setq derl-cookie "cookie")
 
-;;================================  opencl  ============================
+;;============================  opencl  ============================
 (setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
 
-;;================================   clisp  ==============================
+;;============================   clisp  ============================
 ;;(add-to-list 'load-path "~/.emacs.d/slime/")
 ;;(setq inferior-lisp-program "/usr/bin/sbcl")
 ;;(require 'slime)
 ;;(slime-setup '(slime-fancy))
 
-;;=================================   SML   ==============================
+;;============================  SML  ============================
 ;;(add-to-list 'load-path "~/.emacs.d/sml-mode/")
 ;;(autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
 ;;(autoload 'run-sml "sml-proc" "Run an inferiro SML process." t)
 ;;(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\|fun\\)\\'" . sml-mode))
 
-;;=================================   Golang   ==============================
+;;============================  Golang  ============================
 ;;(setq load-path (cons (expand-file-name "~/.emacs.d/go/") load-path))
 ;;(require 'go-mode-load)
 
-;;================================  CEDET  ============================
+;;============================  CEDET  ============================
 (require 'cedet)
 (require 'semantic)
 ;;(global-ede-mode 1)
@@ -365,15 +366,15 @@
 ;;(global-semantic-tag-folding-mode 1)
 ;;(global-srecode-minor-mode 1)
 
-;;================================  ac  ============================
+;;============================  ac  ============================
 
-;;================================  cscope  ============================
+;;============================  cscope  ============================
 (load-file "~/.emacs.d/xcscope.el")
 (require 'xcscope)
 ;;(load-file "~/.emacs.d/ascope.el")
 ;;(require 'ascope)
 
-;;================================  ECB  ============================
+;;============================  ECB  ============================
 (add-to-list 'load-path "~/.emacs.d/ecb-new-cedet")
 (require 'ecb)
 
@@ -406,7 +407,7 @@
 (custom-set-variables
  '(ecb-options-version "2.40"))
 
-;;==============================  GDB  =================================
+;;============================  GDB  ============================
 (setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
 
