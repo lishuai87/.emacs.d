@@ -338,7 +338,6 @@
 (setq semantic-default-submodes
       (append semantic-default-submodes
 	      '(global-semantic-idle-local-symbol-highlight-mode
-		global-semantic-idle-summary-mode
 		global-semantic-decoration-mode
 		global-semantic-highlight-func-mode
 		global-semantic-stickyfunc-mode
@@ -367,7 +366,7 @@
 (add-to-list 'load-path "~/.emacs.d/yasnippet")
 (require 'yasnippet)
 (setq yas/snippet-dirs "~/.emacs.d/yasnippet/snippets")
-(yas/global-mode 1) 
+(yas/global-mode 1)
 
 (add-to-list 'load-path "~/.emacs.d/auto-complete")
 (require 'auto-complete)

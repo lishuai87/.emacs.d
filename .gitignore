@@ -7,4 +7,4 @@ semanticdb/
 clang-async/clang-complete
 clang-async/src/dep/
 clang-async/src/obj/
-
+distel/ebin/
