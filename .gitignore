@@ -8,3 +8,4 @@ clang-async/clang-complete
 clang-async/src/dep/
 clang-async/src/obj/
 distel/ebin/
+distel/elisp/erlext.elc
