@@ -153,7 +153,8 @@
 
 ;; for nw mode
 (when (not window-system)
-  (setq-default linum-format "%2d  "))
+  (setq-default linum-format "%2d  ")
+  (xterm-mouse-mode t))
 
 (require 'whitespace)
 (global-set-key [f6] 'whitespace-mode)
