@@ -8,7 +8,9 @@
 (setq x-select-enable-clipboard t)
 (tool-bar-mode -1)
 
-;;============================  key binding  ============================
+;;----------------------------------------------------------------------------
+;; key binding
+;;----------------------------------------------------------------------------
 ;; y/n
 (fset 'yes-or-no-p 'y-or-n-p)
 ;; C-k
@@ -100,7 +102,9 @@
 (require 'ibuffer)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;;============================  mouse  ============================
+;;----------------------------------------------------------------------------
+;; mouse
+;;----------------------------------------------------------------------------
 ;; copy
 (setq mouse-drag-copy-region nil)
 
@@ -115,7 +119,9 @@
 (global-set-key [mouse-4] 'down-slightly)
 (global-set-key [mouse-5] 'up-slightly)
 
-;;============================  tabbar  ============================
+;;----------------------------------------------------------------------------
+;; tabbar
+;;----------------------------------------------------------------------------
 (load-file "~/.emacs.d/tabbar.el")
 (require 'tabbar)
 (tabbar-mode)
@@ -147,7 +153,9 @@
 		    :inherit 'tabbar-default
 		    )
 
-;;============================  theme  ============================
+;;----------------------------------------------------------------------------
+;; theme
+;;----------------------------------------------------------------------------
 (require 'linum)
 (global-linum-mode t)
 
@@ -198,7 +206,9 @@
 				    (buffer-file-name))))
 				 "/%b" )))))
 
-;;============================  rfc  ============================
+;;----------------------------------------------------------------------------
+;; rfc
+;;----------------------------------------------------------------------------
 (setq load-path (cons "~/.emacs.d/rfc" load-path))
 (setq auto-mode-alist
       (cons '("/rfc[0-9]+\\.txt\\(\\.gz\\)?\\'" . rfcview-mode)
@@ -219,7 +229,9 @@
 (require 'sr-speedbar)
 (setq sr-speedbar-right-side nil)
 
-;;============================  C style  ============================
+;;----------------------------------------------------------------------------
+;; C
+;;----------------------------------------------------------------------------
 (c-set-offset 'substatement-open 0)
 
 ;; kernel style
@@ -231,7 +243,12 @@
 	     (setq indent-tabs-mode t)
 	     (setq c-basic-offset 8)))
 
-;;============================  format  ============================
+;; opencl
+(setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
+
+;;----------------------------------------------------------------------------
+;; format
+;;----------------------------------------------------------------------------
 ;; one key format
 (defun indent-whole ()
   (interactive)
@@ -260,14 +277,21 @@
 (autopair-global-mode)
 (add-hook 'c-mode-common-hook '(lambda () (autopair-mode)))
 
-;;============================  cperl  ============================
+;;----------------------------------------------------------------------------
+;; cperl
+;;----------------------------------------------------------------------------
 (defalias 'perl-mode 'cperl-mode)
 
 (setq cperl-indent-level 4
       cperl-brace-offset -2)
 
-;;============================  erlang  ============================
-(setq load-path (cons "/usr/lib/erlang/lib/tools-2.6.10/emacs" load-path))
+;;----------------------------------------------------------------------------
+;; erlang
+;;----------------------------------------------------------------------------
+(add-to-list 'load-path
+	     (substring
+	      (shell-command-to-string "echo /usr/lib/erlang/lib/tools*/emacs")
+	      0 -1))
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
 (require 'erlang-start)
@@ -312,26 +336,28 @@
 
 (setq derl-cookie "cookie")
 
-;;============================  opencl  ============================
-(setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
-
-;;============================   clisp  ============================
+;;----------------------------------------------------------------------------
+;; other language
+;;----------------------------------------------------------------------------
+;; clisp
 ;;(add-to-list 'load-path "~/.emacs.d/slime/")
 ;;(setq inferior-lisp-program "/usr/bin/sbcl")
 ;;(require 'slime)
 ;;(slime-setup '(slime-fancy))
 
-;;============================  SML  ============================
+;; SML
 ;;(add-to-list 'load-path "~/.emacs.d/sml-mode/")
 ;;(autoload 'sml-mode "sml-mode" "Major mode for editing SML." t)
 ;;(autoload 'run-sml "sml-proc" "Run an inferiro SML process." t)
 ;;(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\|fun\\)\\'" . sml-mode))
 
-;;============================  Golang  ============================
+;; Golang
 ;;(setq load-path (cons (expand-file-name "~/.emacs.d/go/") load-path))
 ;;(require 'go-mode-load)
 
-;;============================  CEDET  ============================
+;;----------------------------------------------------------------------------
+;; CEDET
+;;----------------------------------------------------------------------------
 (require 'cedet)
 (require 'semantic)
 ;;(global-ede-mode 1)
@@ -363,7 +389,9 @@
 ;;(global-semantic-tag-folding-mode 1)
 ;;(global-srecode-minor-mode 1)
 
-;;============================  ac  ============================
+;;----------------------------------------------------------------------------
+;; auto-complete
+;;----------------------------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/yasnippet")
 (require 'yasnippet)
 (setq yas/snippet-dirs "~/.emacs.d/yasnippet/snippets")
@@ -401,13 +429,17 @@
 (setq ac-auto-start 2)
 (setq ac-dwim t)
 
-;;============================  cscope  ============================
+;;----------------------------------------------------------------------------
+;; cscope
+;;----------------------------------------------------------------------------
 (load-file "~/.emacs.d/xcscope.el")
 (require 'xcscope)
 ;;(load-file "~/.emacs.d/ascope.el")
 ;;(require 'ascope)
 
-;;============================  ECB  ============================
+;;----------------------------------------------------------------------------
+;; ECB
+;;----------------------------------------------------------------------------
 (add-to-list 'load-path "~/.emacs.d/ecb-new-cedet")
 (require 'ecb)
 
@@ -440,7 +472,9 @@
 (custom-set-variables
  '(ecb-options-version "2.40"))
 
-;;============================  GDB  ============================
+;;----------------------------------------------------------------------------
+;; GDB
+;;----------------------------------------------------------------------------
 (setq gdb-many-windows t)
 (setq gdb-use-separate-io-buffer t)
 
