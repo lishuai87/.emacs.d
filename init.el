@@ -289,9 +289,7 @@
 ;; erlang
 ;;----------------------------------------------------------------------------
 (add-to-list 'load-path
-	     (substring
-	      (shell-command-to-string "echo /usr/lib/erlang/lib/tools*/emacs")
-	      0 -1))
+	     (car (file-expand-wildcards "/usr/lib/erlang/lib/tools-*/emacs")))
 (setq erlang-root-dir "/usr/lib/erlang")
 (setq exec-path (cons "/usr/lib/erlang/bin" exec-path))
 (require 'erlang-start)
