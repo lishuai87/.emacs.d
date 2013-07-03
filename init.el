@@ -56,6 +56,7 @@
 		c-mode
 		c++-mode
 		erlang-mode
+		go-mode
 		plain-tex-mode))
       (if (and (eolp) (not (bolp)))
 	  (progn (forward-char 1)
@@ -267,6 +268,7 @@
 		     c-mode
 		     c++-mode
 		     erlang-mode
+		     go-mode
 		     plain-tex-mode))
 	   (let ((mark-even-if-inactive transient-mark-mode))
 	     (indent-region (region-beginning) (region-end) nil))))))
@@ -312,7 +314,7 @@
 (add-hook 'erlang-mode-hook
 	  (lambda ()
 	    ;; when starting an Erlang shell in Emacs, default in the node name
-	    (setq inferior-erlang-machine-options '("-sname" "emacs@localhost" "-setcookie" "cookie"))
+	    (setq inferior-erlang-machine-options '("-sname" "emacs" "-setcookie" "cookie"))
 	    ;; add Erlang functions to an imenu menu
 	    (imenu-add-to-menubar "imenu")))
 
@@ -350,8 +352,8 @@
 ;;(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\|fun\\)\\'" . sml-mode))
 
 ;; Golang
-;;(setq load-path (cons (expand-file-name "~/.emacs.d/go/") load-path))
-;;(require 'go-mode-load)
+(add-to-list 'load-path "~/.emacs.d/golang/")
+(require 'go-mode-load)
 
 ;;----------------------------------------------------------------------------
 ;; CEDET
@@ -377,7 +379,6 @@
 (semantic-mode 1)
 (semanticdb-enable-gnu-global-databases 'c-mode)
 (semanticdb-enable-gnu-global-databases 'c++-mode)
-(semanticdb-enable-gnu-global-databases 'erlang-mode)
 
 (define-key semantic-mode-map (kbd "C-c , .") 'semantic-ia-fast-jump)
 (define-key semantic-mode-map (kbd "C-c , P") 'semantic-analyze-proto-impl-toggle)
@@ -399,12 +400,11 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/auto-complete/dict")
-
 ;;(define-key ac-completing-map "\t" 'ac-complete)
 ;;(define-key ac-completing-map "\r" nil)
-
 (global-auto-complete-mode t)
 
+;; clang-complete-async
 (add-to-list 'load-path "~/.emacs.d/clang-async")
 (require 'auto-complete-clang-async)
 (setq ac-clang-complete-executable "~/.emacs.d/clang-async/clang-complete")
@@ -420,9 +420,14 @@
 
 (my-ac-config)
 
-(set-face-background 'ac-candidate-face "lightgray")
-(set-face-underline 'ac-candidate-face "darkgray")
-(set-face-background 'ac-selection-face "steelblue")
+;; golang-autocomplete
+(require 'go-autocomplete)
+
+(add-hook 'go-mode-hook (lambda ()
+			  (setq ac-sources '(ac-source-go
+					     ac-source-yasnippet))
+			  (local-set-key (kbd "M-.") 'godef-jump)
+			  (local-set-key (kbd "M-,") 'godef-jump-back)))
 
 (setq ac-auto-start 2)
 (setq ac-dwim t)
