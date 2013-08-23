@@ -157,6 +157,7 @@
 ;;----------------------------------------------------------------------------
 ;; theme
 ;;----------------------------------------------------------------------------
+(column-number-mode t)
 (require 'linum)
 (global-linum-mode t)
 
@@ -206,6 +207,11 @@
 				   (abbreviate-file-name
 				    (buffer-file-name))))
 				 "/%b" )))))
+
+;; display time
+(set-time-zone-rule "GMT+8")
+(setq display-time-format "%m.%d %I:%M%p")
+(display-time)
 
 ;;----------------------------------------------------------------------------
 ;; rfc
