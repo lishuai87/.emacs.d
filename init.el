@@ -209,7 +209,7 @@
 				 "/%b" )))))
 
 ;; display time
-(set-time-zone-rule "GMT+8")
+(set-time-zone-rule "GMT-8")
 (setq display-time-format "%m.%d %I:%M%p")
 (display-time)
 
@@ -321,6 +321,7 @@
 	  (lambda ()
 	    ;; when starting an Erlang shell in Emacs, default in the node name
 	    (setq inferior-erlang-machine-options '("-sname" "emacs" "-setcookie" "cookie"))
+	    (modify-syntax-entry ?_ "w")
 	    ;; add Erlang functions to an imenu menu
 	    (imenu-add-to-menubar "imenu")))
 
