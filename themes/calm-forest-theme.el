@@ -132,6 +132,7 @@
  '(jde-java-font-lock-package-face ((t (:foreground "steelblue1"))))
  '(jde-java-font-lock-pre-face ((t (nil))))
  '(jde-java-font-lock-underline-face ((t (:underline t))))
+ '(linum ((t (:background "color-232"))))
  '(menu ((t (nil))))
  '(mode-line ((t (:background "grey75" :foreground "black"
 			      :box (:line-width -1 :style released-button)))))

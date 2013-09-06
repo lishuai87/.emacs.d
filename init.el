@@ -161,10 +161,17 @@
 (require 'linum)
 (global-linum-mode t)
 
-;; for nw mode
 (when (not window-system)
-  (setq-default linum-format "%2d  ")
-  (xterm-mouse-mode t))
+  (xterm-mouse-mode t)
+  (add-hook 'linum-before-numbering-hook
+	    (lambda ()
+	      (setq-default linum-format
+			    (concat "%"
+				    (number-to-string
+				     (length (number-to-string
+					      (count-lines
+					       (point-min) (point-max)))))
+				    "d ")))))
 
 (require 'whitespace)
 (global-set-key [f6] 'whitespace-mode)
@@ -503,3 +510,17 @@
 (defadvice gdb (before ecb-deactivate activate)
   (when (and (boundp 'ecb-minor-mode) ecb-minor-mode)
     (ecb-deactivate)))
+
+(defun highlight-current-word()
+  "highlight the word under cursor"
+  (interactive)
+  (let (head-point tail-point word)
+    (skip-chars-forward "-_A-Za-z0-9")
+    (setq tail-point (point))
+    (skip-chars-backward "-_A-Za-z0-9")
+    (setq head-point (point))
+    (setq word (buffer-substring-no-properties head-point tail-point))
+    (setq isearch-string word)
+    (isearch-search-and-update)))
+
+(add-hook 'isearch-mode-hook 'highlight-current-word)
