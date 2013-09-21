@@ -211,16 +211,16 @@
 
 ;; eclim
 
-(defun ac-eclim-candidates ()
-  (with-no-warnings
-    (loop for c in (eclim/java-complete)
-          collect (nth 1 c))))
+;; (defun ac-eclim-candidates ()
+;;   (with-no-warnings
+;;     (loop for c in (eclim/java-complete)
+;;           collect (nth 1 c))))
 
-(ac-define-source eclim
-  '((candidates . ac-eclim-candidates)
-    (prefix . c-dot)
-    (requires . 0)
-    (symbol . "f")))
+;; (ac-define-source eclim
+;;   '((candidates . ac-eclim-candidates)
+;;     (prefix . c-dot)
+;;     (requires . 0)
+;;     (symbol . "f")))
 
 ;; css
 

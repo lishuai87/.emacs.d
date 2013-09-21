@@ -161,9 +161,6 @@
 (require 'linum)
 (global-linum-mode t)
 
-
-
-
 (when (not window-system)
   (xterm-mouse-mode t)
   (defadvice linum-update-window (around linum-format-dynamic activate)
@@ -364,6 +361,11 @@
 ;;(autoload 'run-sml "sml-proc" "Run an inferiro SML process." t)
 ;;(add-to-list 'auto-mode-alist '("\\.\\(sml\\|sig\\|fun\\)\\'" . sml-mode))
 
+;; Java
+(add-to-list 'load-path "~/.emacs.d/eclim/")
+(require 'eclim)
+(require 'eclimd)
+
 ;; Golang
 (add-to-list 'load-path "~/.emacs.d/golang/")
 (require 'go-mode-load)
@@ -420,9 +422,9 @@
 ;; clang-complete-async
 (add-to-list 'load-path "~/.emacs.d/clang-async")
 (require 'auto-complete-clang-async)
-(setq ac-clang-complete-executable "~/.emacs.d/clang-async/clang-complete")
 
 (defun ac-cc-mode-setup ()
+  (setq ac-clang-complete-executable "~/.emacs.d/clang-async/clang-complete")
   (setq ac-sources '(ac-source-clang-async
 		     ac-source-yasnippet))
   (ac-clang-launch-completion-process))
@@ -436,11 +438,28 @@
 ;; golang-autocomplete
 (require 'go-autocomplete)
 
-(add-hook 'go-mode-hook (lambda ()
-			  (setq ac-sources '(ac-source-go
-					     ac-source-yasnippet))
-			  (local-set-key (kbd "M-.") 'godef-jump)
-			  (local-set-key (kbd "M-,") 'godef-jump-back)))
+(add-hook 'go-mode-hook
+	  (lambda ()
+	    (setq ac-sources '(ac-source-go
+			       ac-source-yasnippet))
+	    (local-set-key (kbd "M-.") 'godef-jump)
+	    (local-set-key (kbd "M-,") 'godef-jump-back)))
+
+;; java
+(setq eclim-auto-save t)
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+
+;; eclim autocomplete
+(require 'ac-emacs-eclim-source)
+(ac-emacs-eclim-config)
+(add-hook 'java-mode-hook
+	  (lambda ()
+	    (remove 'ac-source-clang-async 'ac-sources)
+	    (local-set-key (kbd "M-.") 'eclim-java-find-declaration)
+	    (local-set-key (kbd "M-,") 'pop-tag-mark)
+	    (eclim-mode t)))
 
 (setq ac-auto-start 2)
 (setq ac-dwim t)
@@ -509,17 +528,3 @@
 (defadvice gdb (before ecb-deactivate activate)
   (when (and (boundp 'ecb-minor-mode) ecb-minor-mode)
     (ecb-deactivate)))
-
-(defun highlight-current-word()
-  "highlight the word under cursor"
-  (interactive)
-  (let (head-point tail-point word)
-    (skip-chars-forward "-_A-Za-z0-9")
-    (setq tail-point (point))
-    (skip-chars-backward "-_A-Za-z0-9")
-    (setq head-point (point))
-    (setq word (buffer-substring-no-properties head-point tail-point))
-    (setq isearch-string word)
-    (isearch-search-and-update)))
-
-(add-hook 'isearch-mode-hook 'highlight-current-word)
