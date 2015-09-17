@@ -250,8 +250,9 @@
 	     (c-set-style "linux")   ;; or k&r
 	     ;;(c-set-offset 'case-label '+)
 	     (setq tab-width 8)
-	     (setq indent-tabs-mode t)
-	     (setq c-basic-offset 8)))
+	     (setq indent-tabs-mode t)))
+
+(setq c-basic-offset 8)
 
 ;; opencl
 (setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
@@ -306,6 +307,7 @@
 (require 'erlang-start)
 
 (add-hook 'erlang-mode-hook 'erlang-font-lock-level-3)
+(add-hook 'erlang-mode-hook '(lambda() (setq indent-tabs-mode nil)))
 (add-to-list 'auto-mode-alist '("\\.\\(erl\\|hrl\\|app\\|app.src\\)\\'" . erlang-mode))
 
 ;;(defun my-erlang-mode-hook ()
