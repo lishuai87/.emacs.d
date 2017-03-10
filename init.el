@@ -157,9 +157,9 @@
 ;;----------------------------------------------------------------------------
 ;; theme
 ;;----------------------------------------------------------------------------
-(column-number-mode t)
 (require 'linum)
 (global-linum-mode t)
+(column-number-mode t)
 
 (when (not window-system)
   (xterm-mouse-mode t)
@@ -176,6 +176,9 @@
 ;;(setq whitespace-hspace
 ;;      '(face tab lines-tail space-after-tab))
 ;;(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(setq ediff-window-setup-function 'ediff-setup-windows-plain)
+(setq ediff-split-window-function 'split-window-horizontally)
 
 ;; calm-forest
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
@@ -197,7 +200,7 @@
   (lambda ()
     (fci-mode 1)))
 
-;;(global-fci-mode 1)
+(global-fci-mode 1)
 (setq-default fill-column 80)
 
 ;; file path
@@ -249,11 +252,11 @@
 	  '(lambda ()
 	     (c-set-style "linux")   ;; or k&r
 	     ;;(c-set-offset 'case-label '+)
-	     (setq tab-width 8)
-	     (setq indent-tabs-mode t)))
+	     ))
 
-(setq c-basic-offset 8)
-
+(setq-default tab-width 4
+              c-basic-offset 4
+              indent-tabs-mode nil)
 ;; opencl
 (setq auto-mode-alist (cons '("\.cl$" . c-mode) auto-mode-alist))
 
